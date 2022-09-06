@@ -1,0 +1,44 @@
+plugins {
+    id 'org.springframework.boot' version '2.7.2'
+    id 'io.spring.dependency-management' version '1.0.12.RELEASE'
+    id 'java'
+    id 'war'
+}
+
+group = 'kr.co'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '1.8'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    // spring boot는 jsp 사용을 권장하지 않는다 : jsp는 jar 패키징을 할 수 없고 (war 패키징 해야 함) 의존성 문제도 발생 할 수 있기 때문이라고 한다.
+
+    // Tomcat이 JSP 파일을 컴파일 할 수 있도록 도움을 주는 라이브러리
+    implementation "org.apache.tomcat.embed:tomcat-embed-jasper"
+    // JSTL을 사용하기 위한 라이브러리
+    implementation 'javax.servlet:jstl'
+
+    //JDBC
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa' // JPA
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
+
+    // mybatis와 관련된 dependency (jdbc, mybatis)
+    implementation 'org.springframework.boot:spring-boot-starter-data-jdbc'
+    implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:2.2.2'
+
+    compileOnly 'org.projectlombok:lombok'
+    runtimeOnly 'org.mariadb.jdbc:mariadb-java-client:3.0.6'
+    annotationProcessor 'org.projectlombok:lombok'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+}

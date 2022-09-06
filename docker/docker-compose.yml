@@ -1,0 +1,16 @@
+version: "3.9"
+services:
+  db:
+    image: mariadb
+    environment:
+      - MARIADB_ROOT_PASSWORD=ctdx2378@
+    ports:
+      - "3308:3308"
+  web:
+    build:
+      context: .
+      dockerfile: ./compose/springboot/Dockerfile
+    ports:
+      - "8080:8080"
+    volumes:
+      -  ./:/app/
